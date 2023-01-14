@@ -1,38 +1,23 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 import time
 
-
 driver = webdriver.Chrome()
-driver.get('https://www.techwithtim.net/')
+driver.get('https://www.facebook.com')
 
-print(driver.title)
 
-link = driver.find_element(By.LINK_TEXT, 'Python Programming')
-link.click()
 
-try:
-    element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.LINK_TEXT, "Beginner Python Tutorials"))
-    )
-    element.click()
-    element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, 'sow-button-19310003'))
-    )
-    element.click()
+email = driver.find_element(By.XPATH, '//*[@id="email"]') # email kiritish joyini topish
+email.send_keys('blah@gmail.com') # email kiritish joyiga email kiritish
 
-    driver.back()
-    driver.back()
-    driver.back()
+password = driver.find_element(By.XPATH, '//*[@id="pass"]') # password kiritish joyini topish
+password.send_keys('blah12121') # password kiritish joyiga password kiritish
 
-    driver.forward()
-    driver.forward()
+time.sleep(2) # login va password kiritilganligini ko'rish uchun kodimizni 2 sekundga to'xtatib turish
 
-    time.sleep(10)
+loginbtn = driver.find_element(By.NAME, 'login') # login tugmasini topish
+loginbtn.click() # email va password kiritilgandan keyin ularni jo'natish uchun login tugmasini bosish
 
-finally:
-    driver.quit()
+time.sleep(10) # natijani ko'rish uchun kodimizni 10 sekundga to'xtatib turish
+driver.close()
